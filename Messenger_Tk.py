@@ -1,7 +1,7 @@
 from tkinter import *
-        
 
-def getText1():     
+
+def getText1(s):
     name1 = Name1.get()   
     if Window2 == 1:
         s = text1.get(1.0, END)
@@ -11,7 +11,8 @@ def getText1():
     else:
         ListBox1.insert(END, "Вы не можете отправить сообщение, ваш собеседник вышел")
 
-def getText2():     
+
+def getText2(s):
     if Window1 == 1:
         name2 = Name2.get()   
         s = text2.get(1.0, END)
@@ -20,6 +21,7 @@ def getText2():
         ListBox2.insert(END, "Я: " + s)
     else:
         ListBox2.insert(END, "Вы не можете отправить сообщение, ваш собеседник вышел")
+
 
 def Exit1():
     global Window1
@@ -35,31 +37,29 @@ def Exit2():
     Window2 = 0
     root2.destroy() 
     ListBox1.insert(END, "   ______ Пользователь "+ name2 +" вышел ______ ")
+
+
 # _________   №1   __________
+
 
 root1 = Tk()
 root1.title("___User №1___")
 root1.geometry('690x320+100+100')
 Window1 = 1   
 
-f_top = Frame(root1) 
+f_top = Frame(root1)
 f_bot = Frame(root1)
 f_top.pack()
 f_bot.pack()
 
 # виджеты окна 1
 
-#Font1=("Comic Sans MS",12)
-#Font2=("Times New Roman",16)
-#Font3=("Impact",11)
-#Font4=("Segoe Print",11)
+LblName1 = Label(f_bot, text="Ваше имя:")
+LblName1.pack(side=LEFT)
 
-LblName1 = Label(f_bot,text="Ваше имя:")
-LblName1.pack(side = LEFT)
-
-Name1 = Entry(f_bot,width=8)
+Name1 = Entry(f_bot, width=8)
 Name1.pack(side=LEFT)
-Name1.insert(0,"User_1")
+Name1.insert(0, "User_1")
 
 ListBox1 = Listbox(f_top, width=68, height=10)
 ListBox1.pack(side=TOP)
@@ -67,22 +67,23 @@ ListBox1.pack(side=TOP)
 text1 = Text(f_bot, width=39, height=1)
 text1.pack(side=LEFT)
 
-get_1 = Button(f_bot, text="Отправить",width=10, height = 1, command=getText1)
+get_1 = Button(f_bot, text="Отправить", width=10, height=1, command=getText1)
 get_1.pack(side=LEFT)
-get_1.bind('<Return>',getText1)
+text1.bind('<Return>', getText1)
+
 
 # начальные параметры для настройки
-ListBox1 ['font'] = ("Comic Sans MS",12)
-Name1 ['font'] = ("Comic Sans MS",12)
-text1 ['font'] = ("Comic Sans MS",12)
-get_1 ['font'] = ("Comic Sans MS",12)
-LblName1 ['font'] = ("Comic Sans MS",12)
+ListBox1 ['font'] = ("Times New Roman",15)
+Name1 ['font'] = ("Times New Roman",15)
+text1 ['font'] = ("Times New Roman",15)
+get_1 ['font'] = ("Times New Roman",15)
+LblName1 ['font'] = ("Times New Roman",15)
 
 root1 ["bg"] = "teal"
 ListBox1 ['bg'] = "azure"
 Name1 ['bg'] = "paleturquoise"
-text1 ['bg'] =  "lightcyan"
-get_1 ['bg'] =  "turquoise"
+text1 ['bg'] = "lightcyan"
+get_1 ['bg'] = "turquoise"
 
 ListBox1 ['fg'] ="Black"
 Name1 ['fg'] ="Black"
@@ -186,12 +187,13 @@ def Segoe1():
     text1 ['font'] = ("Segoe Print",10)
     get_1 ['font'] = ("Segoe Print",10)
     LblName1 ['font'] = ("Segoe Print",10)
-    text2 ['width'] = 43
+    text1 ['width'] = 43
+
 
 
 # MENU 
 
-mainmenu = Menu(root1) 
+mainmenu = Menu(root1)
 root1.config(menu=mainmenu) 
  
 optionsmenu = Menu(mainmenu, tearoff=0)
@@ -214,8 +216,7 @@ Font.add_command(label="Segoe Print",command=Segoe1)
 
 optionsmenu.add_cascade(label="Цветовая гамма", menu=Color)
 optionsmenu.add_cascade(label="Шрифт текста",menu=Font)
-#optionsmenu.add_cascade(label="Выход",command=Exit1)
-
+#optionsmenu.add_cascade(label="Выход",command=Exit1) не обязательно должна быть в меню
 
 
 mainmenu.add_cascade(label="Настройки", menu=optionsmenu)
@@ -229,16 +230,13 @@ root2.title("___User №2___")
 root2.geometry('690x320+800+100')
 Window2 = 1
 
-f_top = Frame(root2) 
+f_top = Frame(root2)
 f_bot = Frame(root2)
 f_top.pack()
 f_bot.pack()
 
 
 # виджеты окна 2
-
-ListBox2 = Listbox(f_top, width=68, height=10)
-ListBox2.pack(side=TOP)
 
 LblName2 = Label(f_bot, text="Ваше имя:")
 LblName2.pack(side = LEFT)
@@ -247,12 +245,15 @@ Name2 = Entry(f_bot,width=8)
 Name2.pack(side=LEFT)
 Name2.insert(0,"User_2")
 
+ListBox2 = Listbox(f_top, width=68, height=10)
+ListBox2.pack(side=TOP)
+
 text2 = Text(f_bot, width=39, height=1 )
 text2.pack(side=LEFT)
 
 get_2 = Button(f_bot, text="Отправить",width=10,height = 1, command=getText2)
 get_2.pack(side=LEFT)
-
+text2.bind('<Return>', getText2)
 
 # начальные параметры для настройки
 
@@ -351,11 +352,11 @@ def Sans2():
     LblName2 ['font'] = ("Comic Sans MS",12)
 
 def Roman2():
-    ListBox2 ['font'] = ("Times New Roman",13)
-    Name2 ['font'] = ("Times New Roman",13)
-    text2 ['font'] = ("Times New Roman",13)
-    get_2 ['font'] = ("Times New Roman",13)
-    LblName2 ['font'] = ("Times New Roman",13)
+    ListBox2 ['font'] = ("Times New Roman",15)
+    Name2 ['font'] = ("Times New Roman",15)
+    text2 ['font'] = ("Times New Roman",15)
+    get_2 ['font'] = ("Times New Roman",15)
+    LblName2 ['font'] = ("Times New Roman",15)
 
 def Impact2():
     ListBox2 ['font'] = ("Impact",14)
@@ -374,7 +375,7 @@ def Segoe2():
 
 
 # MENU2 
-mainmenu = Menu(root2) 
+mainmenu = Menu(root2)
 root2.config(menu=mainmenu) 
  
 optionsmenu = Menu(mainmenu, tearoff=0)
@@ -397,8 +398,8 @@ Font.add_command(label="Segoe Print",command=Segoe2)
 
 optionsmenu.add_cascade(label="Цветовая гамма", menu=Color)
 optionsmenu.add_cascade(label="Шрифт текста",menu=Font)
-optionsmenu.add_cascade(label="Выход",command=Exit2)
-#optionsmenu.add_checkbutton(label = " ")
+# optionsmenu.add_cascade(label="Выход",command=Exit2) не обязательно быть в меню
+
 
 mainmenu.add_cascade(label="Настройки", menu=optionsmenu)
 mainmenu.add_cascade(label="Выход", command=Exit2)
